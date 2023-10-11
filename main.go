@@ -11,7 +11,7 @@ import (
 )
 
 func main() {
-	f, err := os.Open("log.txt")
+	f, err := os.Open("m.txt")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -37,11 +37,8 @@ func main() {
 		log.Fatal(err)
 	}
 
-	fmt.Println(len(rows))
-
-	c := 0
 	m := make(map[string]int)
-	for i, row := range rows {
+	for _, row := range rows {
 		found := false
 
 		for k, v := range m {
@@ -49,7 +46,6 @@ func main() {
 
 			if similarity >= 0.5 {
 				m[k] = v + 1
-				c = c + 1
 				found = true
 				break
 			}
@@ -57,10 +53,7 @@ func main() {
 
 		if !found {
 			m[row] = 1
-			c = c + 1
 		}
-
-		fmt.Println(i)
 	}
 
 	for k, v := range m {
